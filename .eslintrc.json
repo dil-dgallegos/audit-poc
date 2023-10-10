@@ -2,9 +2,36 @@
   "root": true,
   "ignorePatterns": ["**/*"],
   "plugins": ["@nx"],
+  "extends": [
+    "react-app",
+    "plugin:prettier/recommended", // Enables eslint-plugin-prettier and eslint-config-prettier. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
+    "plugin:react/recommended",
+
+    // https://github.com/facebook/react/tree/main/packages/eslint-plugin-react-hooks
+    "plugin:react-hooks/recommended",
+
+    // https://github.com/jsx-eslint/eslint-plugin-jsx-a11y
+    "plugin:jsx-a11y/recommended"
+  ],
+  "parser": "@typescript-eslint/parser", // Specifies the ESLint parser
+  "parserOptions": {
+    "ecmaVersion": 2019, // Allows for the parsing of modern ECMAScript features
+    "sourceType": "module", // Allows for the use of imports
+    "ecmaFeatures": {
+      "jsx": true // Allows for the parsing of JSX
+    }
+  },
+  "rules": {
+    "no-unused-vars": ["warn", { "args": "none" }]
+  },
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "parser": "@typescript-eslint/parser", // Specifies the ESLint parser
+      "extends": [
+        "plugin:@typescript-eslint/recommended", // Uses the recommended rules from the @typescript-eslint/eslint-plugin
+        "plugin:prettier/recommended" // Enables eslint-plugin-prettier and eslint-config-prettier. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
+      ],
       "rules": {
         "@nx/enforce-module-boundaries": [
           "error",
@@ -18,7 +45,15 @@
               }
             ]
           }
-        ]
+        ],
+        "@typescript-eslint/no-explicit-any": "off", // Provide convenience to use `any`
+        "@typescript-eslint/no-unused-vars": ["warn", { "args": "none", "ignoreRestSiblings": true }],
+        "prefer-const": 0,
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "react/prop-types": 0, // Far less valuable in TypeScript
+        "@typescript-eslint/explicit-module-boundary-types": 0,
+        "@typescript-eslint/no-namespace": "off",
+        "react/react-in-jsx-scope": "off"
       }
     },
     {
@@ -31,5 +66,10 @@
       "extends": ["plugin:@nx/javascript"],
       "rules": {}
     }
-  ]
+  ],
+  "settings": {
+    "react": {
+      "version": "detect" // Tells eslint-plugin-react to automatically detect the version of React to use
+    }
+  }
 }

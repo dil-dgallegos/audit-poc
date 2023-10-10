@@ -8,10 +8,7 @@ export default async function (fastify: FastifyInstance) {
     age: 2,
   };
 
-  fastify.get(
-    '/',
-    async function (request: FastifyRequest, reply: FastifyReply) {
-      return { message: 'Hello API' };
-    }
-  );
+  fastify.get('/', async function (request: FastifyRequest, reply: FastifyReply) {
+    return { message: 'Hello API' };
+  });
 }
